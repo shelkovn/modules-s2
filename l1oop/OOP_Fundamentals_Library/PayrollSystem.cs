@@ -2,14 +2,20 @@
 {
     public class PayrollSystem
     {
-        public void ProcessSalary(IOnPayrollBonusSystem staff)
+        public void ProcessSalary(Staff staff)
         {
-            staff.ProcessSalary();
+            string staffType = staff.GetType().Name;
+            Console.WriteLine($"Processing salary for {staffType.ToLower()} {staff.Name}: {staff.Salary}");
+            decimal increase = staff.SalaryIncrease;
+            staff.Salary += increase;
         }
 
-        public decimal CalculateBonus(IOnPayrollBonusSystem staff)
+        public decimal CalculateBonus(Staff staff)
         {
-            return staff.CalculateBonus();
+            decimal bonus = staff.Salary * staff.BonusMultiplier;
+            if (staff.Years > 5) bonus += 500;
+            if (staff.HasCertification) bonus += 300;
+            return bonus;
         }
     }
 }

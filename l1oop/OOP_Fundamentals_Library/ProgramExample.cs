@@ -44,8 +44,10 @@
             payroll.ProcessSalary(employee);
             payroll.ProcessSalary(manager);
 
-            ReportService.GenerateReport(employee);
-            ReportService.GenerateReport(manager);
+            var reports = new ReportService();
+
+            reports.GenerateReport(employee);
+            reports.GenerateReport(manager);
         }
     }
 }
