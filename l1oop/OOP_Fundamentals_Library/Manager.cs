@@ -2,7 +2,7 @@
 
 namespace OOP_Fundamentals_Library
 {
-    public class Manager: IStaff, IOnPayrollBonusSystem
+    public class Manager: IStaff, IOnPayrollBonusSystem, ITaskmanager, IReportable
     {
         private string _name = "NoName";
         private int _age;
@@ -11,7 +11,24 @@ namespace OOP_Fundamentals_Library
         private bool _hasCertification;
         private string _department = "Unknown";
 
-        public List<Employee> Team = new();
+        private readonly List<Employee> _team = new();
+        public IReadOnlyList<Employee> Team => _team.AsReadOnly();
+        public void AddToTeam(Employee employee)
+        {
+            if (employee == null)
+                throw new ArgumentNullException(nameof(employee));
+            if (_team.Contains(employee))
+                throw new InvalidOperationException("Employee already in team");
+
+            _team.Add(employee);
+        }
+
+        public bool RemoveFromTeam(Employee employee)
+        {
+            return _team.Remove(employee);
+        }
+
+        public int TeamSize => _team.Count;
 
         public string Name
         {
@@ -87,6 +104,7 @@ namespace OOP_Fundamentals_Library
         {
             Console.WriteLine($"Manager: {Name}, {Age} years old, Department: {Department}");
         }
+        
         public void ProcessSalary()
         {
             Console.WriteLine($"Processing salary for manager {Name}: {Salary}");
@@ -109,6 +127,14 @@ namespace OOP_Fundamentals_Library
             }
 
             return bonus;
+        }
+
+        public void GenerateReport()
+        {
+            Console.WriteLine($"Manager Report:");
+            Console.WriteLine($"  Name: {Name}");
+            Console.WriteLine($"  Department: {Department}");
+            Console.WriteLine($"  Team Size: {Team.Count}");
         }
 
         public void AssignTaskToEmployee(Employee emp, string task)

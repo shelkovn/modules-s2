@@ -1,6 +1,6 @@
 ﻿namespace OOP_Fundamentals_Library
 {
-    public class Employee: IStaff
+    public class Employee: IStaff, IOnPayrollBonusSystem, IReportable
     {
         private string _name = "NoName";
         private int _age;
@@ -78,6 +78,36 @@
         {
             get { return _hasCertification; }
             set { _hasCertification = value; }
+        }
+
+        public void ProcessSalary()
+        {
+            Console.WriteLine($"Processing salary for employee {Name}: {Salary}");
+            Salary += 1000;
+        }
+
+        public decimal CalculateBonus()
+        {
+            decimal bonus = Salary * 0.1m;
+           
+            if (Years > 5)
+            {
+                bonus += 500;
+            }
+            if (HasCertification)
+            {
+                bonus += 300;
+            }
+
+            return bonus;
+        }
+
+        public void GenerateReport()
+        {
+            Console.WriteLine($"Employee Report:");
+            Console.WriteLine($"  Name: {Name}");
+            Console.WriteLine($"  Age: {Age}");
+            Console.WriteLine($"  Salary: {Salary}"); 
         }
 
         public void PrintInfo()

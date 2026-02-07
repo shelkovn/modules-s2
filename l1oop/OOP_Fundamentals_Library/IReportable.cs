@@ -4,9 +4,8 @@ using System.Text;
 
 namespace OOP_Fundamentals_Library
 {
-    public interface IOnPayrollBonusSystem
+    public interface IReportable
     {
-        void ProcessSalary();
-        decimal CalculateBonus();
+        void GenerateReport();
     }
 }

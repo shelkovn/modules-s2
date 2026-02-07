@@ -2,48 +2,14 @@
 {
     public class PayrollSystem
     {
-        public void ProcessSalary(object employee)
+        public void ProcessSalary(IOnPayrollBonusSystem staff)
         {
-            if (employee is Employee emp)
-            {
-                Console.WriteLine($"Processing salary for employee {emp.Name}: {emp.Salary}");
-                emp.Salary += 1000;
-            }
-            else if (employee is Manager mgr)
-            {
-                Console.WriteLine($"Processing salary for manager {mgr.Name}: {mgr.Salary}");
-                mgr.Salary += 2000;
-            }
-            else
-            {
-                throw new ArgumentException("Unknown employee type");
-            }
+            staff.ProcessSalary();
         }
 
-        public decimal CalculateBonus(string employeeType, decimal baseSalary, int years, bool hasCertification)
+        public decimal CalculateBonus(IOnPayrollBonusSystem staff)
         {
-            decimal bonus = 0;
-
-            if (employeeType == "Employee")
-            {
-                bonus = baseSalary * 0.1m;
-            }
-            else if (employeeType == "Manager")
-            {
-                bonus = baseSalary * 0.2m;
-            }
-
-            if (years > 5)
-            {
-                bonus += 500;
-            }
-
-            if (hasCertification)
-            {
-                bonus += 300;
-            }
-
-            return bonus;
+            return staff.CalculateBonus();
         }
     }
 }

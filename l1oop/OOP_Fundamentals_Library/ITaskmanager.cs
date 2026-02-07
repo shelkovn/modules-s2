@@ -4,9 +4,8 @@ using System.Text;
 
 namespace OOP_Fundamentals_Library
 {
-    public interface IOnPayrollBonusSystem
+    public interface ITaskmanager
     {
-        void ProcessSalary();
-        decimal CalculateBonus();
+        void AssignTaskToEmployee(Employee emp, string task);
     }
 }

@@ -16,6 +16,8 @@
             {
                 Name = "Alice",
                 Age = 25,
+                HasCertification = false,
+                Years = 2,
                 Salary = 50000,
                 Position = "Developer"
             };
@@ -24,11 +26,13 @@
             {
                 Name = "Bob",
                 Age = 40,
+                Years=12,
+                HasCertification = true,
                 Salary = 80000,
                 Department = "IT"
             };
 
-            manager.Team.Add(employee);
+            manager.AddToTeam(employee);
 
             employee.Salary = 55000;
 
@@ -40,8 +44,8 @@
             payroll.ProcessSalary(employee);
             payroll.ProcessSalary(manager);
 
-            ReportService.GenerateEmployeeReport(employee);
-            ReportService.GenerateManagerReport(manager);
+            ReportService.GenerateReport(employee);
+            ReportService.GenerateReport(manager);
         }
     }
 }
