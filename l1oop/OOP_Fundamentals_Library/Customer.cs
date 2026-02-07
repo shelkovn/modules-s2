@@ -35,7 +35,7 @@
 
         public void PrintInfo()
         {
-            Console.WriteLine($"Customer: {_name}, {_age} years old");
+            Console.WriteLine($"Customer: {Name}, {Age} years old");
         }
     }
 }
