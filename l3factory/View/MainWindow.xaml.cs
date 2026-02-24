@@ -1,4 +1,5 @@
-﻿using ShapeFactory.Model.Fabric1;
+﻿//using ShapeFactory.Model.Fabric1;
+using ShapeFactory.Model.Fabric2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Figure = ShapeFactory.Model.Fabric2.Figure;
 
 namespace ShapeFactory
 {
@@ -22,9 +24,7 @@ namespace ShapeFactory
     /// 
     public partial class MainWindow : Window
     {
-        CircleCreator circleCreator;
-        SquareCreator squareCreator;
-        TriangleCreator triangleCreator;
+        private IFigureFactory currentFactory;
 
         public MainWindow()
         {
@@ -45,19 +45,13 @@ namespace ShapeFactory
                 {
 
                     case "Purple":
-                        circleCreator = new PurpleCircleCreator();
-                        squareCreator = new PurpleSquareCreator();
-                        triangleCreator = new PurpleTriangleCreator();
+                        currentFactory = new PurpleFactory();
                         break;
                     case "Black":
-                        circleCreator = new BlackCircleCreator();
-                        squareCreator = new BlackSquareCreator();
-                        triangleCreator = new BlackTriangleCreator();
+                        currentFactory = new BlackFaсtory();
                         break;
                     case "Yellow":
-                        circleCreator = new YellowCircleCreator();
-                        squareCreator = new YellowSquareCreator();
-                        triangleCreator = new YellowTriangleCreator();
+                        currentFactory = new YellowFactory();
                         break;
                     default:
                         return;
@@ -68,21 +62,85 @@ namespace ShapeFactory
 
         private void DrawCircle(object sender, RoutedEventArgs e)
         {
-            Model.Fabric1.Figure circle = circleCreator.CreateCircle();
+            Model.Fabric2.Figure circle = currentFactory.CreateCircle();
             stackp.Children.Add(circle.Draw());
         }
 
         private void DrawSquare(object sender, RoutedEventArgs e)
         {
-            Model.Fabric1.Figure square = squareCreator.CreateSquare();
+            Model.Fabric2.Figure square = currentFactory.CreateSquare();
             stackp.Children.Add(square.Draw());
 
         }
         private void DrawTriangle (object sender, RoutedEventArgs e)
         {
-            Model.Fabric1.Figure triangle = triangleCreator.CreateTriangle();
+            Model.Fabric2.Figure triangle = currentFactory.CreateTriangle();
             stackp.Children.Add(triangle.Draw());
 
         }
+
+        // FABRIC1 -- ВКЛЮЧИТЬ USING ВВЕРХУ ФАЙЛА 
+        //CircleCreator circleCreator;
+        //SquareCreator squareCreator;
+        //TriangleCreator triangleCreator;
+
+        //public MainWindow()
+        //{
+        //    InitializeComponent();
+        //}
+
+        //private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+
+        //    if (sender is ComboBox && e.AddedItems.Count != 0)
+        //    {
+        //        ComboBoxItem item = (ComboBoxItem)e.AddedItems[0];
+        //        if (stackp != null)
+        //        {
+        //            stackp.Children.Clear();
+        //        }
+        //        switch (item.Content.ToString())
+        //        {
+
+        //            case "Purple":
+        //                circleCreator = new PurpleCircleCreator();
+        //                squareCreator = new PurpleSquareCreator();
+        //                triangleCreator = new PurpleTriangleCreator();
+        //                break;
+        //            case "Black":
+        //                circleCreator = new BlackCircleCreator();
+        //                squareCreator = new BlackSquareCreator();
+        //                triangleCreator = new BlackTriangleCreator();
+        //                break;
+        //            case "Yellow":
+        //                circleCreator = new YellowCircleCreator();
+        //                squareCreator = new YellowSquareCreator();
+        //                triangleCreator = new YellowTriangleCreator();
+        //                break;
+        //            default:
+        //                return;
+        //        }
+        //    }
+
+        //}
+
+        //private void DrawCircle(object sender, RoutedEventArgs e)
+        //{
+        //    Model.Fabric1.Figure circle = circleCreator.CreateCircle();
+        //    stackp.Children.Add(circle.Draw());
+        //}
+
+        //private void DrawSquare(object sender, RoutedEventArgs e)
+        //{
+        //    Model.Fabric1.Figure square = squareCreator.CreateSquare();
+        //    stackp.Children.Add(square.Draw());
+
+        //}
+        //private void DrawTriangle(object sender, RoutedEventArgs e)
+        //{
+        //    Model.Fabric1.Figure triangle = triangleCreator.CreateTriangle();
+        //    stackp.Children.Add(triangle.Draw());
+
+        //}
     }
 }

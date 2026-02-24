@@ -79,6 +79,14 @@
     <Compile Include="Model\Fabric1\YellowCircleCreator.cs" />
     <Compile Include="Model\Fabric1\YellowSquareCreator.cs" />
     <Compile Include="Model\Fabric1\YellowTriangleCreator.cs" />
+    <Compile Include="Model\Fabric2\Circle.cs" />
+    <Compile Include="Model\Fabric2\Figure.cs" />
+    <Compile Include="Model\Fabric2\IFigureFactory.cs" />
+    <Compile Include="Model\Fabric2\BlackFaсtory.cs" />
+    <Compile Include="Model\Fabric2\PurpleFactory.cs" />
+    <Compile Include="Model\Fabric2\Square.cs" />
+    <Compile Include="Model\Fabric2\Triangle.cs" />
+    <Compile Include="Model\Fabric2\YellowFactory.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
