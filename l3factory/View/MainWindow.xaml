@@ -1,0 +1,26 @@
+﻿<Window x:Class="ShapeFactory.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeFactory"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" >
+            <Button Click="DrawCircle"  Content="◯" Width="60" Margin="3" Height="50"/>
+            <Button Click="DrawSquare" Content="⬛" Width="60" Margin="3" Height="50"/>
+            <Button Click="DrawTriangle"  Content="▲" Width="60" Margin="3" Height="50"/>
+            <ComboBox x:Name="colorbox"  Margin="5" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" Height="50" Width="70">
+                <ComboBoxItem Content="Yellow" />
+                <ComboBoxItem Content="Black"/>
+                <ComboBoxItem Content="Purple"/>
+            </ComboBox>
+        </StackPanel>
+        <WrapPanel x:Name="stackp" Grid.Column="1"/>
+    </Grid>
+</Window>
