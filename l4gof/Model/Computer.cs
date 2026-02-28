@@ -13,7 +13,7 @@ namespace l4gof.Model
         public string Display()
         {
             string none = "unknown";
-            string display = $"cpu: {(CPU is null? none : CPU)}, ram: {RAM} gb, gpu: : {(GPU is null ? none : GPU)}\n";
+            string display = $"cpu: {(CPU is null ? none : CPU)}, ram: {RAM} gb, gpu: : {(GPU is null ? none : GPU)}\n";
             if (AdditionalComponents is null) return display;
 
             display += $"additional ({AdditionalComponents.Count()}): \n";
@@ -22,6 +22,19 @@ namespace l4gof.Model
                 display += $"{component} \n";
             }
             return display;
+        }
+
+        public Computer ShallowCopy()
+        {
+            return (Computer)MemberwiseClone();
+        }
+
+        public Computer DeepCopy()
+        {
+            Computer other = (Computer)MemberwiseClone();
+            if (AdditionalComponents is not null)
+                other.AdditionalComponents = new List<string>(this.AdditionalComponents);
+            return other;
         }
     }
 }
