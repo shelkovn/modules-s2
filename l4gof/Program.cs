@@ -15,6 +15,15 @@ namespace l4gof
                 .WithComponent("LED lights")
                 .Build();
             Console.WriteLine(mypc.Display());
+
+            Computer office = new OfficeComputerFactory().Construct();
+            Console.WriteLine(office.Display());
+
+            Computer gaming = new GamingComputerFactory().Construct();
+            Console.WriteLine(gaming.Display());
+
+            Computer home = new HomeComputerFactory().Construct();
+            Console.WriteLine(home.Display());
         }
     }
 }
