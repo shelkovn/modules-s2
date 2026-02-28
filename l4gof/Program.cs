@@ -26,19 +26,31 @@ namespace l4gof
             //Console.WriteLine(home.Display());
 
 
-            Computer pc1 = new GamingComputerFactory().Construct();
-            Computer pc2 = pc1.ShallowCopy();
-            pc2.AdditionalComponents.Add("pc2 component");
+            //Computer pc1 = new GamingComputerFactory().Construct();
+            //Computer pc2 = pc1.ShallowCopy();
+            //pc2.AdditionalComponents.Add("pc2 component");
+
+            //Console.WriteLine(pc1.Display());
+            //Console.WriteLine(pc2.Display());
+
+            //Computer pc3 = new GamingComputerFactory().Construct();
+            //Computer pc4 = pc3.DeepCopy();
+            //pc4.AdditionalComponents.Add("pc4 component");
+
+            //Console.WriteLine(pc3.Display());
+            //Console.WriteLine(pc4.Display());
+
+            PrototypeRegistry prot = PrototypeRegistry.Instance;
+            Computer pc1 = prot.GetPrototype("gaming");
+            pc1.RAM = 30;
+            pc1.AdditionalComponents.Add("pc1 component");
+            Computer pc2 = prot.GetPrototype("gaming");
 
             Console.WriteLine(pc1.Display());
             Console.WriteLine(pc2.Display());
 
-            Computer pc3 = new GamingComputerFactory().Construct();
-            Computer pc4 = pc3.DeepCopy();
-            pc4.AdditionalComponents.Add("pc4 component");
-
-            Console.WriteLine(pc3.Display());
-            Console.WriteLine(pc4.Display());
+            PrototypeRegistry prot2 = PrototypeRegistry.Instance;
+            Console.WriteLine(ReferenceEquals(prot, prot2));
         }
     }
 }
