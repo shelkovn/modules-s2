@@ -7,7 +7,7 @@ namespace l5caf.Model
 {
     internal class Folder: FileSystemItem
     {
-        readonly List<FileSystemItem> Children;
+        public readonly List<FileSystemItem> Children;
 
         public Folder(string name)
         {
