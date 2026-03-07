@@ -48,7 +48,7 @@ namespace l5caf.Model
             }
             else
             {
-                Console.WriteLine("нелзя нет такого файла");
+                Console.WriteLine("нелзя нет такого");
                 // throw new InvalidOperationException();
             }
         }

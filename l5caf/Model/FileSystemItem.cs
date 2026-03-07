@@ -6,7 +6,7 @@ namespace l5caf.Model
 {
     abstract class FileSystemItem
     {
-        public virtual string Name { get; set; }
+        public virtual string Name { get; set; } = $"item{DateTime.Now}";
 
         public abstract long GetSize();
         public abstract void Add(FileSystemItem item);

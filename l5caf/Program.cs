@@ -14,11 +14,15 @@ namespace l5caf
             root.Add(folder1);
             folder1.Add(new Model.File(17171717, "budetzhitvechno"));
             Console.WriteLine(root.GetSize());
-
+            
             AdapterClass filesystem = new AdapterClass(root);
-            filesystem.WriteFile("sabaka/twosuns", new byte[0]);
-            filesystem.WriteFile("sabaka/watchingitall", new byte[0]);
-            filesystem.WriteFile("sabaka/aaeieio", new byte[0]);
+            filesystem.WriteFile("sabaka/twoskies", []);
+            filesystem.AddFolder("sabaka/watchingitall");
+            filesystem.AddFolder("sabaka/watchingitall/fading");
+            filesystem.WriteFile("sabaka/aaeieio", []);
+            filesystem.AddFolder("sabaka/watchingitall/twosuns");
+            filesystem.AddFolder("sabaka/watchingitall/twosuns/watchingthemboth");
+
             foreach (string str in filesystem.ListItems(""))
             {
                 Console.WriteLine(str);
@@ -39,6 +43,20 @@ namespace l5caf
 
             byte[] data = filesystem.ReadFile("biba");
             FileOut(data);
+
+            Folder cloudroot = new Folder("root");
+            AdapterClass cloudstorage = new AdapterClass(cloudroot);
+            SyncFacade facade = new SyncFacade(filesystem, cloudstorage);
+
+            facade.Backup("sabaka/watchingitall", "coolfolder");
+            foreach (string str in cloudstorage.ListItems(""))
+            {
+                Console.WriteLine(str);
+            }
+            Console.WriteLine();
+            //string s0 = "path/1";
+            //string s = "path/1/2/3";
+            //Console.WriteLine((s.Contains(s0) && s.Substring(0, s0.Length) == s0));
         }
 
         static void FileOut(byte[] data)
