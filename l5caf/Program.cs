@@ -13,7 +13,7 @@ namespace l5caf
             Folder folder1 = new Folder("sabaka");
             root.Add(folder1);
             folder1.Add(new Model.File(17171717, "budetzhitvechno"));
-            Console.WriteLine(root.GetSize());
+            //Console.WriteLine(root.GetSize());
             
             AdapterClass filesystem = new AdapterClass(root);
             filesystem.WriteFile("sabaka/twoskies", []);
@@ -23,23 +23,23 @@ namespace l5caf
             filesystem.AddFolder("sabaka/watchingitall/twosuns");
             filesystem.AddFolder("sabaka/watchingitall/twosuns/watchingthemboth");
 
-            foreach (string str in filesystem.ListItems(""))
-            {
-                Console.WriteLine(str);
-            }
-            Console.WriteLine();
+            //foreach (string str in filesystem.ListItems(""))
+            //{
+            //    Console.WriteLine(str);
+            //}
+            //Console.WriteLine();
 
-            foreach (string str in filesystem.ListItems("sabaka"))
-            {
-                Console.WriteLine(str);
-            }
-            Console.WriteLine();
+            //foreach (string str in filesystem.ListItems("sabaka"))
+            //{
+            //    Console.WriteLine(str);
+            //}
+            //Console.WriteLine();
 
             filesystem.DeleteItem("sabaka/aaeieio");
-            foreach (string str in filesystem.ListItems("sabaka"))
-            {
-                Console.WriteLine(str);
-            }
+            //foreach (string str in filesystem.ListItems("sabaka"))
+            //{
+            //    Console.WriteLine(str);
+            //}
 
             byte[] data = filesystem.ReadFile("biba");
             FileOut(data);
@@ -54,6 +54,7 @@ namespace l5caf
                 Console.WriteLine(str);
             }
             Console.WriteLine();
+
             //string s0 = "path/1";
             //string s = "path/1/2/3";
             //Console.WriteLine((s.Contains(s0) && s.Substring(0, s0.Length) == s0));
@@ -90,8 +91,8 @@ namespace l5caf
                             Console.ForegroundColor = palette[pixel];
                             Console.BackgroundColor = palette[pixel];
                             Console.Write("██");
+                            Console.ResetColor();
                         }
-                        Console.ResetColor();
                     }
                     Console.WriteLine();
                 }

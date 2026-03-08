@@ -7,7 +7,7 @@ namespace l5caf.Model
 {
     internal class Folder: FileSystemItem
     {
-        public readonly List<FileSystemItem> Children;
+        public List<FileSystemItem> Children;
 
         public Folder(string name)
         {
@@ -32,7 +32,7 @@ namespace l5caf.Model
             if (Children.Any(i => i.Name == item.Name))
             {
                 Console.WriteLine("нелзя имя занято");
-                // throw new InvalidOperationException();
+                // throw new InvalidOperationException("нелзя имя занято");
             }
             else
             {
@@ -49,7 +49,7 @@ namespace l5caf.Model
             else
             {
                 Console.WriteLine("нелзя нет такого");
-                // throw new InvalidOperationException();
+                // throw new InvalidOperationException("нелзя нет такого");
             }
         }
 
