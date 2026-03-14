@@ -22,7 +22,7 @@ namespace l6fbpw.Model
 
         public void Draw(int x, int y)
         {
-            Console.WriteLine($"{_symbol} {x} {y}");
+            Console.WriteLine($"{_font} {_fontSize} {_symbol} {x} {y}");
         }
     }
 }

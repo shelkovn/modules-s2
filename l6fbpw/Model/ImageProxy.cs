@@ -3,7 +3,7 @@
     public class ImageProxy : IImage
     {
         private string _filename;
-        private HighResolutionImage _realImage;
+        private HighResolutionImage? _realImage;
         public ImageProxy(string filename)
         {
             _filename = filename;
