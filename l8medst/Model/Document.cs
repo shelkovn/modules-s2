@@ -9,6 +9,7 @@ namespace l8medst.Model
     public class Document
     {
         IDocumentState State;
+        public string Name { get; set; } = $"untitled_{DateTime.Now}";
 
         public Document(IDocumentState state)
         {
