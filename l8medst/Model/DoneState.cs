@@ -8,15 +8,15 @@ namespace l8medst.Model
 {
     public class DoneState : IDocumentState
     {
-        public void Print(Document document) => Console.WriteLine("[FSM: Done] Работа с документом завершена, невозможно взаимодействовать.");
+        public void Print(Document document) => Console.WriteLine($"[FSM: Done] Работа с документом {document.Name} завершена, невозможно взаимодействовать.");
 
-        public void AddToQueue(Document document) => Console.WriteLine("[FSM: Done] Работа с документом завершена, невозможно взаимодействовать.");
+        public void AddToQueue(Document document) => Console.WriteLine($"[FSM: Done] Работа с документом {document.Name} завершена, невозможно взаимодействовать.");
 
 
-        public void CompletePrinting(Document document) => Console.WriteLine("[FSM: Done] Работа с документом завершена, невозможно взаимодействовать.");
+        public void CompletePrinting(Document document) => Console.WriteLine($"[FSM: Done] Работа с документом {document.Name} завершена, невозможно взаимодействовать.");
 
-        public void FailPrinting(Document document) => Console.WriteLine("[FSM: Done] Работа с документом завершена, невозможно взаимодействовать.");
+        public void FailPrinting(Document document) => Console.WriteLine($"[FSM: Done] Работа с документом {document.Name} завершена, невозможно взаимодействовать.");
 
-        public void Reset(Document document) => Console.WriteLine("[FSM: Done] Работа с документом завершена, невозможно взаимодействовать.");
+        public void Reset(Document document) => Console.WriteLine($"[FSM: Done] Работа с документом {document.Name} завершена, невозможно взаимодействовать.");
     }
 }

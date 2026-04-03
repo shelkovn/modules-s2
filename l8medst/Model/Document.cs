@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace l8medst.Model
 {
-    public class Document
+    public class Document : Colleague
     {
         IDocumentState State;
         public string Name { get; set; } = $"untitled_{DateTime.Now}";
 
-        public Document(IDocumentState state)
+        public Document(String name, IDocumentState state)
         {
             State = state;
+            Name = name;
         }
         public void SetState(IDocumentState state) => State = state;
 
@@ -23,5 +24,10 @@ namespace l8medst.Model
         public void CompletePrinting() => State.CompletePrinting(this);
         public void FailPrinting() => State.FailPrinting(this);
         public void Reset() => State.Reset(this);
+
+        public void MediatorNotify(string ev)
+        {
+            Mediator.Notify(this, ev, this);
+        }
     }
 }

@@ -9,18 +9,18 @@ namespace l8medst.Model
 {
     public class ErrorState : IDocumentState
     {
-        public void Print(Document document) => Console.WriteLine("[FSM: Error] Печать невозможна из - за ошибки.Сначала сбросьте документ(Reset).");
+        public void Print(Document document) => Console.WriteLine($"[FSM: Error] Печать {document.Name} невозможна из - за ошибки.Сначала сбросьте документ(Reset).");
 
-        public void AddToQueue(Document document) => Console.WriteLine("[FSM: Error] Нельзя добавить в очередь из-за ошибки.Сначала сбросьте документ.");
+        public void AddToQueue(Document document) => Console.WriteLine($"[FSM: Error] Нельзя добавить {document.Name} в очередь из-за ошибки. Сначала сбросьте документ.");
 
-        public void CompletePrinting(Document document) => Console.WriteLine("[FSM: Error] Ошибка не устранена.");
+        public void CompletePrinting(Document document) => Console.WriteLine($"[FSM: Error] Ошибка {document.Name} не устранена.");
 
-        public void FailPrinting(Document document) => Console.WriteLine("[FSM: Error] Документ уже в состоянии ошибки.");
+        public void FailPrinting(Document document) => Console.WriteLine($"[FSM: Error] Документ {document.Name} уже в состоянии ошибки.");
 
         public void Reset(Document document)
         {
             document.SetState(new NewState());
-            Console.WriteLine("[FSM: Error -> New] Документ сброшен и готов к повторной печати.");
+            Console.WriteLine($"[FSM: Error -> New] Документ {document.Name} сброшен и готов к повторной печати.");
         }
     }
 }

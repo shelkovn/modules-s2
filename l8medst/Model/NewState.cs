@@ -10,20 +10,21 @@ namespace l8medst.Model
     {
         public void Print(Document document)
         {
-            document.SetState(new PrintingState());
             document.AddToQueue();
-            Console.WriteLine("[FSM: New -> Printing] Документ в очереди на печать.");
+            Console.WriteLine($"[FSM: New -> Queued] Документ {document.Name} еще не в очереди. Документ будет отправлен в очередь.");
         }
 
-        public void AddToQueue(Document document) 
+        public void AddToQueue(Document document)
         {
-            //TODO
+            document.MediatorNotify("QueueDocument");
+            document.SetState(new QueuedState());
+            Console.WriteLine($"[FSM: New->Queued] Документ {document.Name} в очереди на печать.");
         }
 
-        public void CompletePrinting(Document document) => Console.WriteLine("[FSM: New] Документ не в очереди или еще не напечатан.");
+        public void CompletePrinting(Document document) => Console.WriteLine($"[FSM: New] Документ {document.Name} не в очереди или еще не напечатан.");
 
-        public void FailPrinting(Document document) => Console.WriteLine("[FSM: New] Документ не в очереди или еще не напечатан.");
+        public void FailPrinting(Document document) => Console.WriteLine($"[FSM: New] {document.Name} Документ не в очереди или еще не напечатан.");
 
-        public void Reset(Document document) => Console.WriteLine("[FSM: New] Документ не в состоянии ошибки.");
+        public void Reset(Document document) => Console.WriteLine($"[FSM: New] {document.Name} Документ не в состоянии ошибки.");
     }
 }

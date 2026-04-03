@@ -16,6 +16,8 @@ namespace l8medst.Model
             Console.WriteLine($" [Printer] Печать {document.Name}...");
 
             Mediator.Notify(this, "PrintStarted", document);
+
+            Thread.Sleep(1000);
         
             if (SimulateFailure)
             {
@@ -27,7 +29,7 @@ namespace l8medst.Model
             else
             {
                 // Принтер сообщает посреднику: "Я успешно напечатал"
-                Mediator.Notify(this, "PrintSuccess", document);
+                Mediator.Notify(this, "PrintSucceeded", document);
             }
         }
     }
