@@ -16,7 +16,11 @@ namespace l9_mvvm.Model
         public string Name 
         {
             get { return _name; } 
-            set { _name = value.Trim(); }
+            set 
+            { 
+                _name = value.Trim();
+                Set(ref _name, value);
+            }
         }
 
         public string Phone
@@ -25,11 +29,21 @@ namespace l9_mvvm.Model
             set 
             {
                 value = value.Trim();
-                if (value.StartsWith('+') && value.Substring(1, value.Length-1).All(char.IsDigit) && value.Length == 11) // начинается с +, после + только цифры, не менее 11 символов
+                if (IsPhoneValid(value)) // начинается с +, после + только цифры, 12 символов
                 {
-                    _phone = value;
+                    Set(ref _phone, value);
                 }
             }
+        }
+
+        public bool Validate()
+        {
+            return (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Phone) && IsPhoneValid(Phone));
+        }
+
+        private bool IsPhoneValid(string phone)
+        {
+            return (phone.StartsWith('+') && phone.Substring(1, phone.Length - 1).All(char.IsDigit) && phone.Length == 12);
         }
 
         public Contact(int id, string name, string phone)
@@ -37,6 +51,11 @@ namespace l9_mvvm.Model
             _id = id;
             _name = name;
             _phone = phone;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} : {Phone}";
         }
     }
 }
