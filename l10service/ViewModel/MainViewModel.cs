@@ -1,4 +1,5 @@
 ﻿using l9_mvvm.Model;
+using l9_mvvm.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +18,7 @@ namespace l9_mvvm.ViewModel
         private string _phone = string.Empty;
         private string _errMsg = string.Empty;
         private Contact? _selectedContact;
+        private IDialogService _dialogService;
         private int id = 0;
 
         public string ErrorMsg 
@@ -44,8 +46,9 @@ namespace l9_mvvm.ViewModel
         // Команды
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
-        public MainViewModel()
+        public MainViewModel(IDialogService ds)
         {
+            _dialogService = ds;
             Contacts = new ObservableCollection<Contact>();
             AddCommand = new RelayCommand(
             AddContact,
@@ -59,6 +62,7 @@ namespace l9_mvvm.ViewModel
         }
         private void AddContact()
         {
+            //TODO confirm there's no duplicate phone numbers
             Contact c = new Contact(id++, _name, _phone);
             if (c.Validate())
             {
@@ -79,7 +83,12 @@ namespace l9_mvvm.ViewModel
         private void DeleteContact()
         {
             if (SelectedContact is not null && Contacts.Contains(SelectedContact))
-                Contacts.Remove(SelectedContact);
+            {
+                if (_dialogService.GetConfirmation($"Delete contact {SelectedContact}?"))
+                {
+                    Contacts.Remove(SelectedContact);
+                }
+            }
         }
         private bool CanDeleteContact()
         {

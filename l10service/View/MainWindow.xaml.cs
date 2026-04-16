@@ -20,7 +20,6 @@ namespace l9_mvvm
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
