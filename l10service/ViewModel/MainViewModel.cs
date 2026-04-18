@@ -62,14 +62,22 @@ namespace l9_mvvm.ViewModel
         }
         private void AddContact()
         {
-            //TODO confirm there's no duplicate phone numbers
+            
             Contact c = new Contact(id++, _name, _phone);
             if (c.Validate())
             {
-                Contacts.Add(c);
-                Name = string.Empty;
-                Phone = string.Empty;
-                ErrorMsg = string.Empty;
+                if (Contacts.Any(c => c.Phone == _phone))
+                {
+                    _dialogService.ShowError("A contact with that phone already exists");
+                    ErrorMsg = $"A contact with the number {_phone} already exists";
+                }
+                else
+                {
+                    Contacts.Add(c);
+                    Name = string.Empty;
+                    Phone = string.Empty;
+                    ErrorMsg = string.Empty;
+                }
             }
             else
             {
