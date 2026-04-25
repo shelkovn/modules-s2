@@ -1,11 +1,12 @@
-﻿using System;
+﻿using l9_mvvm.Model.App;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace l9_mvvm.Model
+namespace l9_mvvm.Model.Data
 {
     public class Contact : ObservableObject
     {
