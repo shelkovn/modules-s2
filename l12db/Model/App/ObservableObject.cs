@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace l9_mvvm.Model
+namespace l9_mvvm.Model.App
 {
     public abstract class ObservableObject : INotifyPropertyChanged
     {

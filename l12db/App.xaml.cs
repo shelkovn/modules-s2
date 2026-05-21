@@ -1,4 +1,5 @@
-﻿using l9_mvvm.Services;
+﻿using l9_mvvm.Interface;
+using l9_mvvm.Services;
 using l9_mvvm.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,27 +20,29 @@ namespace l9_mvvm
             base.OnStartup(e);
             var services = new ServiceCollection();
             // 2. Регистрируем сервисы (Lifetime)
-            // DialogService — Singleton, так как он не хранит состояние пользователя.
+            // Service — Singleton, так как он не хранит состояние пользователя.
             services.AddSingleton<IDialogService, WPFDialogService>();
-            // 3. ViewModel — Transient (при навигации нам будут
-            // нужны новые экземпляры)
-            services.AddTransient<MainViewModel>();
+            services.AddSingleton<INavigationService, NavigationService>();
+            // 3. ViewModel — Transient (при навигации нам будут нужны новые экземпляры)
+            services.AddSingleton<ContactListViewModel>();
+            services.AddTransient<AboutViewModel>();
+            services.AddTransient<ContactEditViewModel>();
+            services.AddSingleton<MainWindowViewModel>();
+
             // 4. Главное окно — Singleton с явной передачей
             // DataContext через лямбда-выражение
-            services.AddSingleton<MainWindow>(sp =>
-            {
+            services.AddSingleton<MainWindow>(sp => {
                 var window = new MainWindow();
-                window.DataContext =
-                sp.GetRequiredService<MainViewModel>();
+                window.DataContext = sp.GetRequiredService<MainWindowViewModel>();
                 return window;
             });
+
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(
+                    "Data Source=DBSRV\\OV2025;Initial Catalog=PhoneBookDB_Shelkovn_2307b;Integrated Security=True;TrustServerCertificate=True"));
             // 5. Создаём контейнер (ServiceProvider)
             var serviceProvider =
             services.BuildServiceProvider();
-            //database context
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(
-                "connection_string"));
             // 6. Получаем главное окно и запускаем его
             var mainWindow =
             serviceProvider.GetRequiredService<MainWindow>();

@@ -1,19 +1,16 @@
-﻿using l9_mvvm.Model;
-using l9_mvvm.Services;
-using System;
-using System.Collections.Generic;
+﻿using l9_mvvm.Interface;
+using l9_mvvm.Model.App;
+using l9_mvvm.Model.Data;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace l9_mvvm.ViewModel
 {
-    public class MainViewModel: ObservableObject
+    public class ContactListViewModel: ViewModelBase
     {
-        public ObservableCollection<Contact> Contacts { get; }
-        
+        private readonly ApplicationContext _context;
+        public ObservableCollection<Contact> Contacts { get; set; }
+
         private string _name = string.Empty;
         private string _phone = string.Empty;
         private string _errMsg = string.Empty;
@@ -43,46 +40,49 @@ namespace l9_mvvm.ViewModel
         }
 
 
+
         // Команды
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
-        public MainViewModel(IDialogService ds)
+        public ICommand EditCommand { get; }
+        public ContactListViewModel(IDialogService ds, INavigationService navigation, ApplicationContext context) : base(navigation)
         {
+            _context = context;
             _dialogService = ds;
-            Contacts = new ObservableCollection<Contact>();
+            Contacts = new ObservableCollection<Contact>(_context.Contacts.ToList());
             AddCommand = new RelayCommand(
-            AddContact,
-
-            () => CanAddContact());
+            AddContact, () => CanAddContact());
 
             DeleteCommand = new RelayCommand(
-            DeleteContact,
+            DeleteContact, () => CanDeleteOrEditContact());
 
-            () => CanDeleteContact());
+            EditCommand = new RelayCommand(
+            () => _navigation.NavigateTo<ContactEditViewModel>(SelectedContact),
+            () => CanDeleteOrEditContact());
         }
         private void AddContact()
         {
             
-            Contact c = new Contact(id++, _name, _phone);
-            if (c.Validate())
-            {
-                if (Contacts.Any(c => c.Phone == _phone))
-                {
-                    _dialogService.ShowError("A contact with that phone already exists");
-                    ErrorMsg = $"A contact with the number {_phone} already exists";
-                }
-                else
-                {
-                    Contacts.Add(c);
-                    Name = string.Empty;
-                    Phone = string.Empty;
-                    ErrorMsg = string.Empty;
-                }
-            }
-            else
-            {
-                ErrorMsg = $"Invalid info";
-            }
+            //Contact c = new Contact(id++, _name, _phone);
+            //if (c.Validate())
+            //{
+            //    if (Contacts.Any(c => c.Phone == _phone))
+            //    {
+            //        _dialogService.ShowError("A contact with that phone already exists");
+            //        ErrorMsg = $"A contact with the number {_phone} already exists";
+            //    }
+            //    else
+            //    {
+            //        Contacts.Add(c);
+            //        Name = string.Empty;
+            //        Phone = string.Empty;
+            //        ErrorMsg = string.Empty;
+            //    }
+            //}
+            //else
+            //{
+            //    ErrorMsg = $"Invalid info";
+            //}
         }
         private bool CanAddContact()
         {
@@ -98,7 +98,7 @@ namespace l9_mvvm.ViewModel
                 }
             }
         }
-        private bool CanDeleteContact()
+        private bool CanDeleteOrEditContact()
         {
             return (SelectedContact is not null); 
         }
