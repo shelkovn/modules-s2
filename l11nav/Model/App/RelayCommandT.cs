@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace l9_mvvm.Model
+namespace l9_mvvm.Model.App
 {
     public class RelayCommand<T>(Action<object?> execute, Predicate<object?>? canExecute = null) : ICommand
     {

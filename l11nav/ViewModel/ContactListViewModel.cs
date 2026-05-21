@@ -1,16 +1,12 @@
-﻿using l9_mvvm.Model;
-using l9_mvvm.Services;
-using System;
-using System.Collections.Generic;
+﻿using l9_mvvm.Interface;
+using l9_mvvm.Model.App;
+using l9_mvvm.Model.Data;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace l9_mvvm.ViewModel
 {
-    public class MainViewModel: ObservableObject
+    public class ContactListViewModel: ViewModelBase
     {
         public ObservableCollection<Contact> Contacts { get; }
         
@@ -43,22 +39,24 @@ namespace l9_mvvm.ViewModel
         }
 
 
+
         // Команды
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
-        public MainViewModel(IDialogService ds)
+        public ICommand EditCommand { get; }
+        public ContactListViewModel(IDialogService ds, INavigationService navigation) : base(navigation)
         {
             _dialogService = ds;
             Contacts = new ObservableCollection<Contact>();
             AddCommand = new RelayCommand(
-            AddContact,
-
-            () => CanAddContact());
+            AddContact, () => CanAddContact());
 
             DeleteCommand = new RelayCommand(
-            DeleteContact,
+            DeleteContact, () => CanDeleteOrEditContact());
 
-            () => CanDeleteContact());
+            EditCommand = new RelayCommand(
+            () => _navigation.NavigateTo<ContactEditViewModel>(SelectedContact),
+            () => CanDeleteOrEditContact());
         }
         private void AddContact()
         {
@@ -98,7 +96,7 @@ namespace l9_mvvm.ViewModel
                 }
             }
         }
-        private bool CanDeleteContact()
+        private bool CanDeleteOrEditContact()
         {
             return (SelectedContact is not null); 
         }
